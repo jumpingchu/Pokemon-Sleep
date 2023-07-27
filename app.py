@@ -13,14 +13,19 @@ from util import (
     show_cols
 )
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep')
 
 css='''
 <style>
     section.main > div {max-width:90rem}
-    body {
-        overflow: hidden; /* 禁用 body 的滾動 */
+    .container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: scroll; /* 允許內容框內部的內容滾動 */
     }
 </style>
 '''
