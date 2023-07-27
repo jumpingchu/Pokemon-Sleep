@@ -16,6 +16,13 @@ from util import (
 st.set_page_config(layout="wide")
 st.title('Pokemon Sleep')
 
+css='''
+<style>
+    section.main > div {max-width:90rem}
+</style>
+'''
+st.markdown(css, unsafe_allow_html=True)
+
 image = Image.open('pokemon_sleep.png')
 st.image(image, use_column_width=True, output_format='png')
 
