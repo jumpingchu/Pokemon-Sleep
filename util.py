@@ -79,9 +79,9 @@ def get_can_cook(df, have_ingredients):
 
     can_cook = df.iloc[index_match]
 
-    if len(can_cook) > 0:
-        can_cook = can_cook[show_cols]
-    else:
-        can_cook = df[show_cols]
+    # if len(index_match) > 0:
+    #     can_cook = can_cook[show_cols]
+    # else:
+    #     can_cook = df[show_cols]
 
     return can_cook[show_cols].set_index('食譜').T
