@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from PIL import Image
 
 from util import (
     get_can_cook,
@@ -14,6 +15,9 @@ from util import (
 
 st.set_page_config(layout="wide")
 st.title('Pokemon Sleep')
+
+image = Image.open('pokemon_sleep.png')
+st.image(image, width=500, output_format='png')
 
 def get_ingredient_unique_list(df):
     ingredient_list = [
@@ -32,9 +36,11 @@ ingredient_unique_list = get_ingredient_unique_list(df)
 col1, col2 = st.columns(2)
 with col1:
     have_ingredients = st.multiselect('食材', ingredient_unique_list)
+    st.divider()
 with col2:
     ingredients_str_list = ', '.join(have_ingredients)
     st.write(f"目前選擇的食材:")
     st.info(f"{ingredients_str_list}")
     can_cook = get_can_cook(df, have_ingredients)
+    st.write(f"可料理食譜:")
     can_cook
