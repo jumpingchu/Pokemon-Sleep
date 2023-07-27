@@ -19,6 +19,9 @@ st.title('Pokemon Sleep')
 css='''
 <style>
     section.main > div {max-width:90rem}
+    body {
+        overflow: hidden; /* 禁用 body 的滾動 */
+    }
 </style>
 '''
 st.markdown(css, unsafe_allow_html=True)
