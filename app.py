@@ -17,7 +17,7 @@ st.set_page_config(layout="wide")
 st.title('Pokemon Sleep')
 
 image = Image.open('pokemon_sleep.png')
-st.image(image, width=500, output_format='png')
+st.image(image, use_column_width=True, output_format='png')
 
 def get_ingredient_unique_list(df):
     ingredient_list = [
