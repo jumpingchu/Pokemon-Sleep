@@ -25,7 +25,7 @@ css='''
         overflow-x: hidden;
     }
     body {
-        position: relative
+        width: 100%;
     }
 </style>
 '''
