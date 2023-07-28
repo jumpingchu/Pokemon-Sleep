@@ -24,6 +24,9 @@ css='''
     html, body {
         overflow-x: hidden;
     }
+    body {
+        position: relative
+    }
 </style>
 '''
 st.markdown(css, unsafe_allow_html=True)
