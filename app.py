@@ -18,8 +18,10 @@ st.title('Pokemon Sleep')
 
 css='''
 <style>
-    section.main > div {max-width:90rem}
-    html {
+    section.main > div {
+        max-width:90rem;
+    }
+    html, body {
         overflow-x: hidden;
     }
 </style>
