@@ -1,3 +1,13 @@
-# Pokemon-Sleep
+# Pokemon-Sleep Helper
 
-選擇自己有的食材來篩選可料理的食譜
+## Try it (Streamlit Cloud)
+https://pokemon-sleep.streamlit.app/
+
+## 目前功能
+- 利用自己現有的食材篩選能做出哪些食譜料理
+
+## 使用技術
+- Python 
+- Pandas
+- Streamlit
+- CSS
