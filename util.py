@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-category_list = ['全部', '咖哩/濃湯', '沙拉', '點心/飲料']
+category_list = ['全部', '點心/飲料', '沙拉', '咖哩/濃湯']
 curry_soup_list = [
     '特選蘋果咖哩',
     '炙燒尾肉咖哩',
@@ -63,25 +63,31 @@ all_recipe_list = ['全部'] + curry_soup_list + salad_list + snack_drink_list
 
 show_cols = [
     '食譜',
-    '分類',
+    # '分類',
     '食材1數量', 
     '食材2數量', 
     '食材3數量', 
     '食材4數量'
 ]
 
-@st.cache_data
-def get_can_cook(df, have_ingredients):
+def filter_category(df, category):
+    return df.query(f"分類 == '{category}'") if category != '全部' else df
+
+def filter_recipe(df, recipe):
+    return df.query(f"食譜 == '{recipe}'") if recipe != '全部' else df
+
+def get_can_cook(df, have_ingredients, match_mode):
+    if not have_ingredients:
+        return df
+    
     index_match = []
     for row in df.itertuples():
-        if all(i in row.all_food for i in have_ingredients):
-            index_match.append(row.Index)
-
+        if match_mode == '任一食材符合':
+            if any(i in row.all_food for i in have_ingredients):
+                index_match.append(row.Index)
+        else:
+            if all(i in row.all_food for i in have_ingredients):
+                index_match.append(row.Index)
+                
     can_cook = df.iloc[index_match]
-
-    # if len(index_match) > 0:
-    #     can_cook = can_cook[show_cols]
-    # else:
-    #     can_cook = df[show_cols]
-
-    return can_cook[show_cols].set_index('食譜').T
+    return can_cook

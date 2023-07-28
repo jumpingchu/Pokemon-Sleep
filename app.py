@@ -10,6 +10,8 @@ from util import (
     salad_list,
     snack_drink_list,
     all_recipe_list,
+    filter_category,
+    filter_recipe,
     show_cols
 )
 
@@ -45,15 +47,37 @@ def get_ingredient_unique_list(df):
     ingredient_unique_list = [i for i in ingredient_unique_list if i is not np.nan]
     return ingredient_unique_list
 
-df = pd.read_csv('recipe_transformed.csv')
+df = pd.read_csv('recipe_transformed.csv', index_col=0)
 ingredient_unique_list = get_ingredient_unique_list(df)
 
-have_ingredients = st.multiselect('食材', ingredient_unique_list)
+ingredient_col, match_mode_col = st.columns([2, 1])
+with ingredient_col:
+    have_ingredients = st.multiselect(
+        '食材', 
+        ingredient_unique_list,
+        placeholder='請選擇食材（可多選）'
+    )
+with match_mode_col:
+    # match_mode = st.checkbox('任一食材符合', False)
+    match_mode = st.radio('篩選方式', ['所有食材符合', '任一食材符合'], 0)
+
+category_col, recipe_col = st.columns(2)
+with category_col:
+    category = st.selectbox('料理分類', category_list)
+with recipe_col:
+    recipe = st.selectbox('料理名稱', all_recipe_list)
+
 st.divider()
 
-ingredients_str_list = ', '.join(have_ingredients)
+ingredients_str_list = ', '.join(have_ingredients) if have_ingredients else '全部'
 st.write(f"目前選擇的食材:")
 st.info(f"{ingredients_str_list}")
-can_cook = get_can_cook(df, have_ingredients)
+
+can_cook = get_can_cook(df, have_ingredients, match_mode)
+can_cook_filtered = (
+    can_cook
+    .pipe(filter_recipe, recipe)
+    .pipe(filter_category, category)
+)
 st.write(f"可料理食譜:")
-can_cook
+can_cook_filtered[show_cols].set_index('食譜').T
