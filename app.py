@@ -79,5 +79,14 @@ can_cook_filtered = (
     .pipe(filter_recipe, recipe)
     .pipe(filter_category, category)
 )
+
+def color_ingredients(val):
+    color = '#ffff99'
+    if val is not np.nan and any(i in val for i in have_ingredients):
+        return f'background-color: {color}'
+
 st.write(f"可料理食譜:")
-can_cook_filtered[show_cols].set_index('食譜').T
+can_cook_filtered = can_cook_filtered[show_cols].set_index('食譜').T
+st.dataframe(can_cook_filtered.style.applymap(color_ingredients))
+
+# can_cook_filtered[show_cols].set_index('食譜').T
