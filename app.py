@@ -17,6 +17,7 @@ from util import (
 
 st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep')
+st.caption('利用自己現有的食材篩選能做出哪些食譜料理')
 
 css='''
 <style>
@@ -29,12 +30,17 @@ css='''
     body {
         width: 100%;
     }
+    img {
+        display: block;
+        margin-left: 5rem;
+        width: 60%;
+    }
 </style>
 '''
 st.markdown(css, unsafe_allow_html=True)
 
 image = Image.open('pokemon_sleep.png')
-st.image(image, use_column_width=True, output_format='png')
+st.image(image, output_format='png')
 
 def get_ingredient_unique_list(df):
     ingredient_list = [
@@ -63,9 +69,9 @@ with match_mode_col:
 
 category_col, recipe_col = st.columns(2)
 with category_col:
-    category = st.selectbox('料理分類', category_list)
+    category = st.selectbox('食譜分類', category_list)
 with recipe_col:
-    recipe = st.selectbox('料理名稱', all_recipe_list)
+    recipe = st.selectbox('食譜名稱', all_recipe_list)
 
 st.divider()
 
