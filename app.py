@@ -87,6 +87,5 @@ def color_ingredients(val):
 
 st.write(f"可料理食譜:")
 can_cook_filtered = can_cook_filtered[show_cols].set_index('食譜').T
+can_cook_filtered = can_cook_filtered.fillna('')
 st.dataframe(can_cook_filtered.style.applymap(color_ingredients))
-
-# can_cook_filtered[show_cols].set_index('食譜').T
