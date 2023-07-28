@@ -30,17 +30,12 @@ css='''
     body {
         width: 100%;
     }
-    img {
-        display: block;
-        margin-left: 5rem;
-        width: 60%;
-    }
 </style>
 '''
 st.markdown(css, unsafe_allow_html=True)
 
 image = Image.open('pokemon_sleep.png')
-st.image(image, output_format='png')
+st.image(image, use_column_width=True, output_format='png')
 
 def get_ingredient_unique_list(df):
     ingredient_list = [
