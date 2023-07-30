@@ -1,0 +1,1 @@
+POKEMON_SLEEP_IMG = 'img/pokemon_sleep.png'
