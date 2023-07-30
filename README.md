@@ -1,6 +1,6 @@
 # Pokemon-Sleep Helper
 
-![pokemon_sleep](pokemon_sleep.png)
+![pokemon_sleep](img/pokemon_sleep.png)
 
 ## Try it (Streamlit Cloud)
 https://pokemon-sleep.streamlit.app/
