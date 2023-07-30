@@ -13,3 +13,6 @@ https://pokemon-sleep.streamlit.app/
 - Pandas
 - Streamlit
 - CSS
+
+## 資料來源
+- [《野兔小幫手》v1.2.0 (Google Sheet)](https://docs.google.com/spreadsheets/d/18aAHjg762T29F74yo8axDVFO09swCa7nUp_eTZ51ZAc/edit#gid=439534137)
