@@ -6,17 +6,14 @@ from PIL import Image
 from util import (
     get_can_cook,
     category_list,
-    curry_soup_list,
-    salad_list,
-    snack_drink_list,
-    all_recipe_list,
+    all_recipe_dict,
     filter_category,
     filter_recipe,
     show_cols
 )
 
 st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
-st.title('Pokemon Sleep')
+st.title('Pokemon Sleep 食譜')
 st.caption('利用自己現有的食材篩選能做出哪些食譜料理')
 
 css='''
@@ -66,7 +63,7 @@ category_col, recipe_col = st.columns(2)
 with category_col:
     category = st.selectbox('食譜分類', category_list)
 with recipe_col:
-    recipe = st.selectbox('食譜名稱', all_recipe_list)
+    recipe = st.selectbox('食譜名稱', all_recipe_dict.get(category, all_recipe_dict['全部']))
 
 st.divider()
 
@@ -77,8 +74,8 @@ st.info(f"{ingredients_str_list}")
 can_cook = get_can_cook(df, have_ingredients, match_mode)
 can_cook_filtered = (
     can_cook
-    .pipe(filter_recipe, recipe)
     .pipe(filter_category, category)
+    .pipe(filter_recipe, recipe)
 )
 
 def color_ingredients(val):

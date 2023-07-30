@@ -20,7 +20,6 @@ curry_soup_list = [
     '入口即化蛋捲咖哩',
     '健美豆子咖哩',
 ]
-
 salad_list = [
     '呆呆獸尾巴的胡椒沙拉',
     '蘑菇孢子沙拉',
@@ -39,7 +38,6 @@ salad_list = [
     '忍者沙拉',
     '熱風豆腐沙拉',
 ]
-
 snack_drink_list = [
     '熟成甜薯燒',
     '不屈薑餅',
@@ -59,7 +57,12 @@ snack_drink_list = [
     '大力士豆香甜甜圈',
 ]
 
-all_recipe_list = ['全部'] + curry_soup_list + salad_list + snack_drink_list
+all_recipe_dict = {
+    '全部': ['全部'] + curry_soup_list + salad_list + snack_drink_list,
+    '點心/飲料': ['全部'] + snack_drink_list,
+    '沙拉': ['全部'] + salad_list,
+    '咖哩/濃湯': ['全部'] + curry_soup_list
+}
 
 show_cols = [
     '食譜',
@@ -70,12 +73,7 @@ show_cols = [
     '食材4數量'
 ]
 
-def filter_category(df, category):
-    return df.query(f"分類 == '{category}'") if category != '全部' else df
-
-def filter_recipe(df, recipe):
-    return df.query(f"食譜 == '{recipe}'") if recipe != '全部' else df
-
+@st.cache_data
 def get_can_cook(df, have_ingredients, match_mode):
     if not have_ingredients:
         return df
@@ -91,3 +89,9 @@ def get_can_cook(df, have_ingredients, match_mode):
                 
     can_cook = df.iloc[index_match]
     return can_cook
+
+def filter_category(df, category):
+    return df.query(f"分類 == '{category}'") if category != '全部' else df
+
+def filter_recipe(df, recipe):
+    return df.query(f"食譜 == '{recipe}'") if recipe != '全部' else df
