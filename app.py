@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
+from css.css_template import BASIC_CSS
+from img.img_filepath import POKEMON_SLEEP_IMG
+from data.data_filepath import RECIPE_TRANSFORMED
 from util import (
     get_can_cook,
     category_list,
@@ -15,23 +18,9 @@ from util import (
 st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep 食譜')
 st.caption('利用自己現有的食材篩選能做出哪些食譜料理')
+st.markdown(BASIC_CSS, unsafe_allow_html=True)
 
-css='''
-<style>
-    section.main > div {
-        max-width:90rem;
-    }
-    html, body {
-        overflow-x: hidden;
-    }
-    body {
-        width: 100%;
-    }
-</style>
-'''
-st.markdown(css, unsafe_allow_html=True)
-
-image = Image.open('pokemon_sleep.png')
+image = Image.open(POKEMON_SLEEP_IMG)
 st.image(image, use_column_width=True, output_format='png')
 
 def get_ingredient_unique_list(df):
@@ -45,7 +34,7 @@ def get_ingredient_unique_list(df):
     ingredient_unique_list = [i for i in ingredient_unique_list if i is not np.nan]
     return ingredient_unique_list
 
-df = pd.read_csv('recipe_transformed.csv', index_col=0)
+df = pd.read_csv(RECIPE_TRANSFORMED, index_col=0)
 ingredient_unique_list = get_ingredient_unique_list(df)
 
 ingredient_col, match_mode_col = st.columns([2, 1])
