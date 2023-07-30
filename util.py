@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import streamlit as st
 
 category_list = ['全部', '點心/飲料', '沙拉', '咖哩/濃湯']
@@ -72,6 +73,23 @@ show_cols = [
     '食材3數量', 
     '食材4數量'
 ]
+
+def get_ingredient_unique_list(df):
+    ingredient_list = [
+        *df['食材1'], 
+        *df['食材2'],
+        *df['食材3'],
+        *df['食材4'],
+    ]
+    ingredient_unique_list = list(set(ingredient_list))
+    ingredient_unique_list = [i for i in ingredient_unique_list if i is not np.nan]
+    return ingredient_unique_list
+
+# Uses st.cache_data to only rerun when the query changes or after 10 min.
+@st.cache_data(ttl=600) # Time to Live = 600 seconds
+def load_gsheet_data(sheets_url):
+    csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
+    return pd.read_csv(csv_url, on_bad_lines='skip')
 
 @st.cache_data
 def get_can_cook(df, have_ingredients, match_mode):

@@ -7,6 +7,7 @@ from css.css_template import BASIC_CSS
 from img.img_filepath import POKEMON_SLEEP_IMG
 from data.data_filepath import RECIPE_TRANSFORMED
 from util import (
+    get_ingredient_unique_list,
     get_can_cook,
     category_list,
     all_recipe_dict,
@@ -22,17 +23,6 @@ st.markdown(BASIC_CSS, unsafe_allow_html=True)
 
 image = Image.open(POKEMON_SLEEP_IMG)
 st.image(image, use_column_width=True, output_format='png')
-
-def get_ingredient_unique_list(df):
-    ingredient_list = [
-        *df['食材1'], 
-        *df['食材2'],
-        *df['食材3'],
-        *df['食材4'],
-    ]
-    ingredient_unique_list = list(set(ingredient_list))
-    ingredient_unique_list = [i for i in ingredient_unique_list if i is not np.nan]
-    return ingredient_unique_list
 
 df = pd.read_csv(RECIPE_TRANSFORMED, index_col=0)
 ingredient_unique_list = get_ingredient_unique_list(df)
