@@ -50,6 +50,7 @@ cols = [
     'Lv30食材',
     'Lv60食材',
     '來源島嶼',
+    '睡眠類型'
 ]
 match_df = match_df[cols]
 match_df.fillna('', inplace=True)

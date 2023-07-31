@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from data.data_filepath import POKEMON_SHEET, POKEMON_TRANSFORMED
 from util import load_gsheet_data
 
@@ -21,11 +22,24 @@ df['來源島嶼'] = (
     df['寶藍湖畔']
 )
 df['來源島嶼'] = df['來源島嶼'].apply(lambda x: x.strip(' / ')) # 移除字尾多餘的斜線
+
+df['all_sleep_type'] = (
+    df['睡眠類型'] + ' / ' + \
+    df['睡眠類型.1'] + ' / ' + \
+    df['睡眠類型.2'] + ' / ' + \
+    df['睡眠類型.3'] + ' / ' + \
+    df['睡眠類型.4'] + ' / ' + \
+    df['睡眠類型.5']
+)
+df['all_sleep_type'] = df['all_sleep_type'].apply(lambda x: ' / '.join(list(set(x.split(' / ')))))
+df['all_sleep_type'] = df['all_sleep_type'].apply(lambda x: str(x).strip(' / ')) # 移除字尾多餘的斜線
+
 df = df.rename(
     columns={
         '食材': '基本食材',
         '食材.1': 'Lv30食材',
-        '食材.2': 'Lv60食材'
+        '食材.2': 'Lv60食材',
+        'all_sleep_type': '睡眠類型'
     }
 )
 df = df[[
@@ -38,9 +52,10 @@ df = df[[
     'Lv30食材',
     'Lv60食材',
     'all_ingredients',
+    'all_sleep_type',
     '來源島嶼',
     # '萌綠之島',
-    # '睡眠類型',
+    '睡眠類型',
     # '天青沙灘',
     # '睡眠類型.1',
     # '灰褐洞窟',
