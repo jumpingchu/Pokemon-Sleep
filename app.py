@@ -78,4 +78,5 @@ st.dataframe(
         "食材3圖示": st.column_config.ImageColumn("食材3圖示"),
         "食材4圖示": st.column_config.ImageColumn("食材4圖示")
     },
+    use_container_width=True
 )
