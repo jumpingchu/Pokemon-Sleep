@@ -10,9 +10,10 @@ https://pokemon-sleep.streamlit.app/
 - 寶可夢的樹果、食材、來源島嶼
 
 ## 使用技術
-- Python 
-- Pandas
 - Streamlit
+- Python:
+  - Data process: `numpy`, `pandas`
+  - Crawler: `requests`, `BeautifulSoup`, `fake_useragent`
 - CSS
 
 ## 可能新增功能優先度
@@ -20,7 +21,8 @@ https://pokemon-sleep.streamlit.app/
 - [ ] 查詢缺乏的食材由哪隻寶可夢產出 (`st.column_config.LinkColumn`)
 - [ ] 所選食材在各食譜的完成度 (`st.column_config.ProgressColumn`)
 - [ ] 完成度由高到低排序
-- [ ] 食譜圖片 (`st.column_config.ImageColumn`)
+- [x] 食材圖片 (`st.column_config.ImageColumn`)
 
 ## 資料來源
 - [《野兔小幫手》v1.3.0 (Google Sheet)](https://docs.google.com/spreadsheets/d/18aAHjg762T29F74yo8axDVFO09swCa7nUp_eTZ51ZAc/edit#gid=439534137)
+- [寶可夢全食譜彙整一覽表](https://pinogamer.com/16427)
