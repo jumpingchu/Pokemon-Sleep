@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 
 from css.css_template import BASIC_CSS
-from img.img_filepath import POKEMON_SLEEP_IMG #, INGREDIENTS_IMG_LINKS
+from img.img_filepath import POKEMON_SLEEP_IMG, INGREDIENTS_IMG_LINKS
 from data.data_filepath import RECIPE_TRANSFORMED
 from util import (
     get_ingredient_unique_list,
@@ -63,6 +63,20 @@ def color_ingredients(val):
         return f'background-color: {color}'
 
 st.write(f"可料理食譜:")
-can_cook_filtered = can_cook_filtered[show_cols].set_index('食譜').T
+can_cook_filtered['食材1圖示'] = can_cook_filtered['食材1'].apply(lambda x: INGREDIENTS_IMG_LINKS.get(x, None))
+can_cook_filtered['食材2圖示'] = can_cook_filtered['食材2'].apply(lambda x: INGREDIENTS_IMG_LINKS.get(x, None))
+can_cook_filtered['食材3圖示'] = can_cook_filtered['食材3'].apply(lambda x: INGREDIENTS_IMG_LINKS.get(x, None))
+can_cook_filtered['食材4圖示'] = can_cook_filtered['食材4'].apply(lambda x: INGREDIENTS_IMG_LINKS.get(x, None))
+can_cook_filtered = can_cook_filtered[show_cols].set_index('食譜')
+can_cook_filtered.dropna(axis='columns', how='all', inplace=True)
 can_cook_filtered = can_cook_filtered.fillna('')
-st.dataframe(can_cook_filtered.style.applymap(color_ingredients))
+st.dataframe(
+    can_cook_filtered.style.applymap(color_ingredients),
+    column_config={
+        "食材1圖示": st.column_config.ImageColumn("食材1圖示"),
+        "食材2圖示": st.column_config.ImageColumn("食材2圖示"),
+        "食材3圖示": st.column_config.ImageColumn("食材3圖示"),
+        "食材4圖示": st.column_config.ImageColumn("食材4圖示")
+    },
+    use_container_width=True
+)
