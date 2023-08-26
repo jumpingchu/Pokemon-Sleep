@@ -33,6 +33,7 @@ https://pokemon-sleep.streamlit.app/
 ### 輸出結果範例
 
 - EasyOCR
+
 ![out_box](img/out_box.png)
 
 ## 資料來源
