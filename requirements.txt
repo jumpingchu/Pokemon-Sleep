@@ -2,3 +2,5 @@ pandas==2.0.3
 numpy==1.24.4
 numba==0.57.1
 shap==0.42.1
+Pillow==9.5.0
+pytesseract
