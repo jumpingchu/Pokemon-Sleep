@@ -2,7 +2,6 @@ import re
 import warnings; warnings.filterwarnings('ignore')
 import pandas as pd
 import pytesseract
-import streamlit as st
 
 
 class TransformImage:
@@ -54,7 +53,6 @@ class TransformImage:
         df_text = df_text[df_text['full_text'].apply(find_zh)]
         return df_text
     
-    @st.cache_data
     def run(_self):
         df = _self.img_to_dataframe()
         df_text = _self.pre_filter(df)
