@@ -31,6 +31,8 @@ https://pokemon-sleep.streamlit.app/
 ## 圖片辨識文字
 
 ### 輸出結果範例
+
+- EasyOCR
 ![out_box](img/out_box.png)
 
 ## 資料來源
