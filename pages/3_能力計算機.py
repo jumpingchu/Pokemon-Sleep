@@ -26,6 +26,7 @@ if uploaded_file is not None:
             status.update(label="辨識圖片中...", state="running")
             transform_img = TransformImage(img)
             info = transform_img.run()
+            status.update(label="圖片辨識完成！", state="complete")
             return info
         
         status.update(label="圖片辨識完成！", state="complete")
