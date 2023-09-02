@@ -4,3 +4,5 @@ numba==0.57.1
 shap==0.42.1
 Pillow==9.5.0
 pytesseract==0.3.10
+paddlepaddle -i https://mirror.baidu.com/pypi/simple
+paddleocr>=2.0.1
