@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 from img_util.parse_img import (
     TransformImage,
@@ -17,16 +18,22 @@ st.divider()
 if uploaded_file is not None:
     
     with st.status("圖片上傳中...") as status:
-        # 處理圖片
-        img = uploaded_file.getvalue()
-        status.update(label="辨識圖片中...", state="running")
-        transform_img = TransformImage(img)
-        info = transform_img.run()
+        
+        @st.cache_data()
+        def process_img(uploaded_file):
+            # 處理圖片
+            img = uploaded_file.getvalue()
+            status.update(label="辨識圖片中...", state="running")
+            transform_img = TransformImage(img)
+            info = transform_img.run()
+            return info
+        
         status.update(label="圖片辨識完成！", state="complete")
+        info = process_img(uploaded_file)
     
     # 顯示圖片
     # st.header('上傳的圖片')
-    # st.image(img)
+    st.image(Image.open(uploaded_file))
     
     # 顯示擷取結果到文字輸入框
     st.header('圖片辨識結果')
