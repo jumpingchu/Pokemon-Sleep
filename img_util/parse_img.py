@@ -1,73 +1,47 @@
 import re
 import warnings; warnings.filterwarnings('ignore')
 import pandas as pd
-import pytesseract
-
+from paddleocr import PaddleOCR
 
 class TransformImage:
     def __init__(self, img):
         self.img = img
-        self.config = r'--psm 12 --dpi 300' # 6, 11 and 12 are more accurate
-        self.output_type = 'dict'
-        self.lang = 'chi_tra'
+        self.lang = "chinese_cht"
     
-    def img_to_dataframe(self):
-        data = pytesseract.image_to_data(self.img, output_type=self.output_type, lang=self.lang, config=self.config)
-        df = pd.DataFrame(data)
-        return df
+    def extract_text_from_img(self):
+        ocr = PaddleOCR(lang=self.lang, show_log=False)
+        result = ocr.ocr(self.img, cls=False)
+        return result[0]
     
-    def pre_filter(self, df):
-        mask = (
-            (df['level'] == 5) & 
-            (df['conf'] > 0)
-        )
+    def filter_text(self, result):
+        info = {}
+        sub_skill_idx = 1
+        for idx, line in enumerate(result):
+            text = line[1][0].strip()
+            text = text.upper()
+            # if find_zh(text):
+            #     filter_result.append((idx, text))
+            if idx < 10 and text in pokemons:
+                info['pokemon'] = text
+            elif idx > 10 and text in main_skills:
+                info['main_skill'] = text
+            elif idx > 25 and text in natures:
+                info['nature'] = text
+            elif text in sub_skills:
+                info[f'sub_skill_{sub_skill_idx}'] = text
+                sub_skill_idx += 1
+            else:
+                pass
 
-        df_text = df[mask]
-        df_text = df_text.drop(['page_num', 'par_num', 'word_num'], axis=1)
-        return df_text
-
-    def create_full_text(self, df_text):
-        df_full_text = df_text[['block_num', 'line_num', 'text']].copy()
-        df_full_text = df_full_text.groupby(['block_num', 'line_num'], as_index=False).transform(lambda x: ''.join(x))
-        df_text['full_text'] = df_full_text['text']
-        return df_text
-
-    def post_filter(self, df_text):
-
-        def find_zh(x):
-            if re.search(u'[\u4e00-\u9fff]', x):
-                return True
-            return False
-
-        def modify_text(x):
-            if '$' in x:
-                x = x.replace('$', 'S')
-                return x
-            return x
-            
-        df_text = df_text.drop_duplicates(['block_num', 'line_num', 'full_text'])
-        df_text = df_text.drop(['level', 'block_num', 'line_num'], axis=1)
-        mask = (
-            (df_text['full_text'].str.len() > 3)
-            & (df_text['full_text'].str.len() < 10)
-            & (df_text['text'] != '一')
-            & (df_text['left'] > 190)
-            & (df_text['top'] > 200)
-        )
-        df_text = df_text[mask]
-        df_text = df_text.drop('text', axis=1)
-        df_text = df_text[df_text['full_text'].apply(find_zh)]
-        df_text['full_text'] = df_text['full_text'].apply(modify_text)
-        return df_text
+        return info
     
     def run(_self):
-        df = _self.img_to_dataframe()
-        df_text = _self.pre_filter(df)
-        df_text = _self.create_full_text(df_text)
-        df_text = _self.post_filter(df_text)
-        return df_text
+        result = _self.extract_text_from_img()
+        info = _self.filter_text(result)
+        return info
     
 main_skills = [
+    '---',
     '能量填充S',
     '能量填充M',
     '夢之碎片獲取S',
@@ -83,6 +57,7 @@ main_skills = [
 ]
 
 sub_skills = [
+    '---',
     '樹果數量S',
     '夢之碎片獎勵',
     '活力回復獎勵',
@@ -103,6 +78,7 @@ sub_skills = [
 ]
 
 pokemons = [
+    '---',
     '妙蛙種子',
     '妙蛙草',
     '妙蛙花',
@@ -210,29 +186,30 @@ pokemons = [
 ]
 
 natures = {
-'怕寂寞': {'up': '幫忙速度', 'down': '活力回復'},
-'固執': {'up': '幫忙速度', 'down': '食材發現'},
-'頑皮': {'up': '幫忙速度', 'down': '主技能'},
-'勇敢': {'up': '幫忙速度', 'down': 'EXP'},
-'大膽': {'up': '活力回復', 'down': '幫忙速度'},
-'淘氣': {'up': '活力回復', 'down': '食材發現'},
-'樂天': {'up': '活力回復', 'down': '主技能'},
-'悠閒': {'up': '活力回復', 'down': 'EXP'},
-'內斂': {'up': '食材發現', 'down': '幫忙速度'},
-'慢吞吞': {'up': '食材發現', 'down': '活力回復'},
-'馬虎': {'up': '食材發現', 'down': '主技能'},
-'冷靜': {'up': '食材發現', 'down': 'EXP'},
-'溫和': {'up': '主技能', 'down': '幫忙速度'},
-'溫順': {'up': '主技能', 'down': '活力回復'},
-'慎重': {'up': '主技能', 'down': '食材發現'},
-'自大': {'up': '主技能', 'down': 'EXP'},
-'膽小': {'up': 'EXP', 'down': '幫忙速度'},
-'急躁': {'up': 'EXP', 'down': '活力回復'},
-'爽朗': {'up': 'EXP', 'down': '食材發現'},
-'天真': {'up': 'EXP', 'down': '主技能'},
-'害羞': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-'勤奮': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-'坦率': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-'浮躁': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-'認真': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
+    '---': {'up': '---', 'down': '---'},
+    '怕寂寞': {'up': '幫忙速度', 'down': '活力回復'},
+    '固執': {'up': '幫忙速度', 'down': '食材發現'},
+    '頑皮': {'up': '幫忙速度', 'down': '主技能'},
+    '勇敢': {'up': '幫忙速度', 'down': 'EXP'},
+    '大膽': {'up': '活力回復', 'down': '幫忙速度'},
+    '淘氣': {'up': '活力回復', 'down': '食材發現'},
+    '樂天': {'up': '活力回復', 'down': '主技能'},
+    '悠閒': {'up': '活力回復', 'down': 'EXP'},
+    '內斂': {'up': '食材發現', 'down': '幫忙速度'},
+    '慢吞吞': {'up': '食材發現', 'down': '活力回復'},
+    '馬虎': {'up': '食材發現', 'down': '主技能'},
+    '冷靜': {'up': '食材發現', 'down': 'EXP'},
+    '溫和': {'up': '主技能', 'down': '幫忙速度'},
+    '溫順': {'up': '主技能', 'down': '活力回復'},
+    '慎重': {'up': '主技能', 'down': '食材發現'},
+    '自大': {'up': '主技能', 'down': 'EXP'},
+    '膽小': {'up': 'EXP', 'down': '幫忙速度'},
+    '急躁': {'up': 'EXP', 'down': '活力回復'},
+    '爽朗': {'up': 'EXP', 'down': '食材發現'},
+    '天真': {'up': 'EXP', 'down': '主技能'},
+    '害羞': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
+    '勤奮': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
+    '坦率': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
+    '浮躁': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
+    '認真': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
 }
