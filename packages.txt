@@ -1,2 +1,1 @@
-tesseract-ocr
-tesseract-ocr-chi-tra
+libgl1-mesa-glx
