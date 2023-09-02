@@ -29,8 +29,8 @@ if uploaded_file is not None:
             status.update(label="圖片辨識完成！", state="complete")
             return info
         
-        status.update(label="圖片辨識完成！", state="complete")
         info = process_img(uploaded_file)
+        status.update(label="圖片辨識完成！", state="complete")
     
     # 顯示圖片
     # st.header('上傳的圖片')
