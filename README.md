@@ -37,6 +37,20 @@ https://pokemon-sleep.streamlit.app/
     -  `tesseract-ocr-chi-tra`
 - [EasyOCR](https://github.com/JaidedAI/EasyOCR) 辨識速度慢但感覺較準確
 - [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) 辨識速度快又準確（目前採用此套件）
+  - `packages.txt`
+    - `libgl1-mesa-glx`
+  - 只有首次執行會較久，因為會下載和讀取 model
+    ```
+    download https://paddleocr.bj.bcebos.com/PP-OCRv3/multilingual/Multilingual_PP-OCRv3_det_infer.tar to /home/appuser/.paddleocr/whl/det/ml/Multilingual_PP-OCRv3_det_infer/Multilingual_PP-OCRv3_det_infer.tar
+    100%|██████████| 3.85M/3.85M [00:13<00:00, 287kiB/s][2023-09-02 12:58:56.839097]  
+
+    download https://paddleocr.bj.bcebos.com/PP-OCRv3/multilingual/chinese_cht_PP-OCRv3_rec_infer.tar to /home/appuser/.paddleocr/whl/rec/chinese_cht/chinese_cht_PP-OCRv3_rec_infer/chinese_cht_PP-OCRv3_rec_infer.tar
+    100%|██████████| 12.3M/12.3M [00:15<00:00, 805kiB/s] [2023-09-02 12:59:13.296936] 
+
+    download https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar to /home/appuser/.paddleocr/whl/cls/ch_ppocr_mobile_v2.0_cls_infer/ch_ppocr_mobile_v2.0_cls_infer.tar
+    100%|██████████| 2.19M/2.19M [00:10<00:00, 214kiB/s][2023-09-02 12:59:26.396503]  
+    ```
+
 ### 輸出結果範例
 
 - PaddleOCR

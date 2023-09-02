@@ -1,0 +1,35 @@
+Name,欄1,Description,Rarity,Upgradable to?,Upgrade 1 stage,樹果,食材,技能
+Berry Finding S,樹果數量S,Increases the number of Berries this Pokémon finds at one time by 1.,"Very Rare
+Gold",樹果數量S,樹果數量S,4,4,4
+Dream Shard Bonus,夢之碎片獎勵,Boosts the number of Dream Shards you earn from sleep research by 6%.,"Very Rare
+Gold",夢之碎片獎勵,夢之碎片獎勵,1,1,1
+Energy Recovery Bonus,活力回復獎勵,Multiplies the Energy the team recovers from sleep sessions by 1.12.,"Very Rare
+Gold",活力回復獎勵,活力回復獎勵,2,2,2
+Helping Bonus,幫手獎勵,Reduces the time needed by team members to help out by 5%.,"Very Rare
+Gold",幫手獎勵,幫手獎勵,3,3,3
+Helping Speed M,幫忙速度M,Reduces the time needed for this Pokémon to help out by 14%.,"Rare
+Silver",幫忙速度M,幫忙速度M,2,2,2
+Helping Speed S,幫忙速度S,Reduces the time needed for this Pokémon to help out by 7%.,"Common
+White",幫忙速度M,幫忙速度M,1,1,1
+Ingredient Finder M,食材機率提升M,Boosts the likelihood of this Pokémon finding ingredients by 36%.,"Rare
+Silver",食材機率提升M,食材機率提升M,0,2,2
+Ingredient Finder S,食材機率提升S,Slightly boosts the likelihood of this Pokémon finding ingredients by 18%.,"Common
+White",食材機率提升M,食材機率提升M,0,1,1
+Inventory Up L,持有上限提升L,Increases the max number of Berries and ingredients this Pokémon can have by 18.,"Rare
+Silver",持有上限提升L,持有上限提升L,0,2,1
+Inventory Up M,持有上限提升M,Increases the max number of Berries and ingredients this Pokémon can have by 12.,"Rare
+Silver",持有上限提升L,持有上限提升L,0,1,0.5
+Inventory Up S,持有上限提升S,Increases the max number of Berries and ingredients this Pokémon can have by 6.,"Common
+White",持有上限提升L,持有上限提升M,0,0.5,0.25
+Research EXP Bonus,研究EXP獎勵,Boosts the EXP you earn from doing sleep research by 6%.,"Very Rare
+Gold",研究EXP獎勵,研究EXP獎勵,0,0,0
+Skill Level Up M,技能等級提升M,Boosts the level of this Pokémon's main skill by 2.,"Very Rare
+Gold",技能等級提升M,技能等級提升M,2,2,2
+Skill Level Up S,技能等級提升S,Boosts the level of this Pokémon's main skill by 1.,"Rare
+Silver",技能等級提升M,技能等級提升M,1,1,1
+Skill Trigger M,技能機率提升M,Boosts the chance of this Pokémon's main skill being used by 36%.,"Rare
+Silver",技能機率提升M,技能機率提升M,2,2,2
+Skill Trigger S,技能機率提升S,Slightly boosts the chance of this Pokémon's main skill being used by 18%.,"Common
+White",技能機率提升M,技能機率提升M,1,1,1
+Sleep EXP Bonus,睡眠EXP獎勵,Boosts the EXP earned by the team after sleep sessions by 14%.,"Very Rare
+Gold",睡眠EXP獎勵,睡眠EXP獎勵,2,2,2
