@@ -1,6 +1,6 @@
 import warnings; warnings.filterwarnings('ignore')
 import pandas as pd
-from data.data_filepath import RECIPE_SHEET
+from data_filepath import RECIPE_SHEET
 from util import (
     load_gsheet_data,
     get_ingredient_unique_list,
