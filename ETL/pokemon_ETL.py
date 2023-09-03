@@ -1,5 +1,3 @@
-import numpy as np
-import pandas as pd
 from data.data_filepath import POKEMON_SHEET, POKEMON_TRANSFORMED
 from util import load_gsheet_data
 
