@@ -6,18 +6,18 @@
 https://pokemon-sleep.streamlit.app/
 
 ## 目前功能
-- 利用自己現有的食材篩選能做出哪些食譜料理
-- 寶可夢的樹果、食材、來源島嶼
+1. app 頁面: 利用自己現有的食材篩選能做出哪些食譜料理
+2. pokemon 頁面: 寶可夢的樹果、食材、來源島嶼
+3. 能力計算機頁面: 上傳遊戲中的寶可夢截圖，自動辨識所有文字（計算能力的功能開發中）
 
 ## 使用技術
 - Streamlit
 - Python:
   - Data process: `numpy`, `pandas`
   - Crawler: `requests`, `BeautifulSoup`, `fake_useragent`
+- Text Detection (OCR 光學字元辨識): `OpenCV`, `PyTesseract`, `EasyOCR`, `PaddleOCR`
 - Scikit-learn (`DecisionTreeRegressor`, `LinearRegression`)
 - SHAP (Feature explanation by visualization)
-- CSS
-- Text Detection (OCR 光學字元辨識): `OpenCV`, `PyTesseract`, `EasyOCR`, `PaddleOCR`
 
 ## 可能新增功能優先度
 - [x] 寶可夢的產出食材頁面 (Multipage apps)
