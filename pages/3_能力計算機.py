@@ -1,13 +1,6 @@
 import streamlit as st
 from PIL import Image
-
-from img_util.parse_img import (
-    TransformImage,
-    pokemons,
-    main_skills,
-    sub_skills,
-    natures
-)
+from pymongo.mongo_client import MongoClient
 
 st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep 寶可夢能力計算機')
@@ -15,7 +8,16 @@ st.caption('上傳寶可夢的截圖，自動取得技能和性格等資訊')
 
 uploaded_file = st.file_uploader("上傳寶可夢截圖", type=['jpg', 'png'])
 st.divider()
+
 if uploaded_file is not None:
+    
+    from img_util.parse_img import (
+        TransformImage,
+        pokemons,
+        main_skills,
+        sub_skills,
+        natures
+    )
     
     with st.status("圖片上傳中...") as status:
         
@@ -75,25 +77,73 @@ if uploaded_file is not None:
         except:
             sub_skill_5 = st.selectbox('副技能5', sub_skills)            
         
+        sub_skills = [
+            sub_skill_1,
+            sub_skill_2,
+            sub_skill_3,
+            sub_skill_4,
+            sub_skill_5
+            ]
+
+        username = st.secrets["db_username"]
+        password = st.secrets["db_password"]
+        uri = f"mongodb+srv://{username}:{password}@cluster0.dhzzdc6.mongodb.net/?retryWrites=true&w=majority"
+        client = MongoClient(uri)
+        db = client['PokemonSleep']
+        ingredient_collection = db['Ingredient']
+        ingredient_all = ingredient_collection.find({})
+        ingredient_list = set([i['_id'] for i in ingredient_all])
+        try:
+            pokemon_collection = db['Pokemon']
+            pokemon_info = pokemon_collection.find_one(pokemon)
+            ingredient = pokemon_info['ingredient']
+            ingredient_num = pokemon_info['ingredient_num']
+            ingredient_1 = st.text_input('食材1', value=ingredient)
+            ingredient_num_1 = st.number_input('食材1數量', value=ingredient_num, min_value=1, max_value=10, step=1)
+        except:
+            ingredient_1 = st.selectbox(':orange[食材1]', value=ingredient_list)
+            ingredient_num_1 = st.number_input(':orange[食材1數量]', min_value=1, max_value=10, step=1)
+        
+        ingredient_2 = st.selectbox(':orange[食材2]', ingredient_list)
+        ingredient_num_2 = st.number_input(':orange[食材2數量]', min_value=1, max_value=10, step=1)
+
+        ingredient_3 = st.selectbox(':orange[食材3]', ingredient_list)
+        ingredient_num_3 = st.number_input(':orange[食材3數量]', min_value=1, max_value=10, step=1)
+        
         # Nature
         try:
             nature = st.text_input('性格', value=f"{info.get('nature', '')}")
         except:
-            nature = st.selectbox('性格', natures)            
+            nature = st.selectbox('性格', natures)
 
         st.write(':small_red_triangle: UP: ', natures[nature]['up'])
         st.write(':small_blue_diamond: DOWN: ', natures[nature]['down'])
         
         submitted = st.form_submit_button("計算能力")
         if submitted:
-            st.write(f"{pokemon=}")
-            st.write(f"{main_skill=}")
-            st.write(f"{sub_skill_1=}")
-            st.write(f"{sub_skill_2=}")
-            st.write(f"{sub_skill_3=}")
-            st.write(f"{sub_skill_4=}")
-            st.write(f"{sub_skill_5=}")
-            st.write(f"{nature=}")
+            from img_util.calculator import calculator
+            energy_score, rank = calculator(
+                uri, 
+                pokemon, 
+                main_skill, 
+                nature, 
+                sub_skills, 
+                ingredient_2,
+                ingredient_num_2,
+                ingredient_3,
+                ingredient_num_3
+            )
+            st.header(f"能量積分: :blue[{energy_score}]")
+            if rank == 'C':
+                st.header(f"評價: :blue[{rank}]")
+            elif rank == 'B':
+                st.header(f"評價: :violet[{rank}]")
+            elif rank == 'A':
+                st.header(f"評價: :red[{rank}]")
+            elif 'S' in rank:
+                st.header(f"評價: :rainbow[{rank}]")
+            else:
+                st.header(f"評價: {rank}")
 
 else:
     st.write('截圖範例（左上角寶可夢方框剛好遮住第一個食材）')

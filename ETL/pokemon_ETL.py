@@ -1,4 +1,4 @@
-from data.data_filepath import POKEMON_SHEET, POKEMON_TRANSFORMED
+from data_filepath import POKEMON_SHEET, POKEMON_TRANSFORMED
 from util import load_gsheet_data
 
 df = load_gsheet_data(POKEMON_SHEET)
