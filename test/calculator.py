@@ -2,7 +2,6 @@ import numpy as np
 from pymongo.mongo_client import MongoClient
 
 # Database connection
-password = 'vJK2jmjsLEMvFSRi'
 uri = f"mongodb+srv://jumpingchu:{password}@cluster0.dhzzdc6.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri)
 db = client['PokemonSleep']
