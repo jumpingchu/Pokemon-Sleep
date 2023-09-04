@@ -23,7 +23,7 @@ st.markdown(BASIC_CSS, unsafe_allow_html=True)
 image = Image.open(POKEMON_SLEEP_IMG)
 st.image(image, use_column_width=True, output_format='png')
 
-RECIPE_TRANSFORMED = 'data/transformed/pokemon_transformed.csv'
+RECIPE_TRANSFORMED = 'data/transformed/recipe_transformed.csv'
 df = pd.read_csv(RECIPE_TRANSFORMED, index_col=0)
 ingredient_unique_list = get_ingredient_unique_list(df)
 

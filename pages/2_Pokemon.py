@@ -6,7 +6,7 @@ st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep 寶可夢')
 st.caption('寶可夢 ＆ 食材、樹果')
 
-POKEMON_TRANSFORMED = 'data/transformed/recipe_transformed.csv'
+POKEMON_TRANSFORMED = 'data/transformed/pokemon_transformed.csv'
 df = pd.read_csv(POKEMON_TRANSFORMED)
 
 ingredient_unique_list = list(set([*df['基本食材'], *df['Lv30食材'], *df['Lv60食材']]))
