@@ -99,16 +99,16 @@ if uploaded_file is not None:
             ingredient = pokemon_info['ingredient']
             ingredient_num = pokemon_info['ingredient_num']
             ingredient_1 = st.text_input('食材1', value=ingredient)
-            ingredient_num_1 = st.number_input('食材1數量', value=ingredient_num, min_value=1, max_value=10, step=1)
+            ingredient_num_1 = st.slider('食材1數量', value=ingredient_num, min_value=1, max_value=10, step=1)
         except:
             ingredient_1 = st.selectbox(':orange[食材1]', ingredient_list)
-            ingredient_num_1 = st.number_input(':orange[食材1數量]', min_value=1, max_value=10, step=1)
+            ingredient_num_1 = st.slider(':orange[食材1數量]', value=1, min_value=1, max_value=10, step=1)
         
         ingredient_2 = st.selectbox(':orange[食材2]', ingredient_list)
-        ingredient_num_2 = st.number_input(':orange[食材2數量]', min_value=1, max_value=10, step=1)
+        ingredient_num_2 = st.slider(':orange[食材2數量]', value=2, min_value=1, max_value=10, step=1)
 
         ingredient_3 = st.selectbox(':orange[食材3]', ingredient_list)
-        ingredient_num_3 = st.number_input(':orange[食材3數量]', min_value=1, max_value=10, step=1)
+        ingredient_num_3 = st.slider(':orange[食材3數量]', value=4, min_value=1, max_value=10, step=1)
         
         # Nature
         try:
