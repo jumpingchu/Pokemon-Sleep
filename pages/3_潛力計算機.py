@@ -121,29 +121,33 @@ if uploaded_file is not None:
         
         submitted = st.form_submit_button("計算能力")
         if submitted:
-            from img_util.calculator import calculator
-            energy_score, rank = calculator(
-                uri, 
-                pokemon, 
-                main_skill, 
-                nature, 
-                sub_skills, 
-                ingredient_2,
-                ingredient_num_2,
-                ingredient_3,
-                ingredient_num_3
-            )
-            st.header(f"能量積分: :blue[{energy_score}]")
-            if rank == 'C':
-                st.header(f"評價: :blue[{rank}]")
-            elif rank == 'B':
-                st.header(f"評價: :violet[{rank}]")
-            elif rank == 'A':
-                st.header(f"評價: :red[{rank}]")
-            elif 'S' in rank:
-                st.header(f"評價: :rainbow[{rank}]")
-            else:
-                st.header(f"評價: {rank}")
+            with st.status("計算中...") as status:
+                from img_util.calculator import calculator
+                energy_score, rank = calculator(
+                    uri, 
+                    pokemon, 
+                    main_skill, 
+                    nature, 
+                    sub_skills, 
+                    ingredient_2,
+                    ingredient_num_2,
+                    ingredient_3,
+                    ingredient_num_3
+                )
+                status.update(label="計算完成！", state="complete", expanded=True)
+                
+                st.header(f"能量積分: :blue[{energy_score}]")
+                if rank == 'C':
+                    st.header(f"評價: :blue[{rank}]")
+                elif rank == 'B':
+                    st.header(f"評價: :violet[{rank}]")
+                elif rank == 'A':
+                    st.header(f"評價: :red[{rank}]")
+                elif 'S' in rank:
+                    st.header(f"評價: :rainbow[{rank}]")
+                else:
+                    st.header(f"評價: {rank}")
+            
 
 else:
     st.write('截圖範例（左上角寶可夢方框剛好遮住第一個食材）')

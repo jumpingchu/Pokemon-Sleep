@@ -88,7 +88,7 @@ def calculator(
         skill_speed_param_up = 0.2 if nature_up == '主技能' else 0
         skill_speed_param_down = -0.2 if nature_down == '主技能' else 0
         skill_speed_param = skill_speed_param_s + skill_speed_param_m + skill_speed_param_up + skill_speed_param_down
-        print(f'{skill_speed_param=}')
+
         # 主技活力加速
         final_skill_level = final_evolution_step + skill_level
         final_skill_speed_param = 1 + skill_speed_param
@@ -97,7 +97,7 @@ def calculator(
             if main_skill in ['活力填充S', '活力療癒S', '活力全體療癒S'] 
             else 0
         )
-        print(f'{main_skill_health_boost=}')
+
         # 主技能能量
         main_skill_has_energy = (
             1 if main_skill not in ['活力填充S', '活力療癒S', '活力全體療癒S'] 
@@ -133,7 +133,6 @@ def calculator(
         carry_m = len([s for s in sub_skills if s == '持有上限提升M']) * 12
         carry_l = len([s for s in sub_skills if s == '持有上限提升L']) * 18
         carry_over_limit_num = (ingredient_create_num + fruit_create_num) * round(30600/calc_help_interval) - (carry_limit + carry_s + carry_m + carry_l)
-        print(f'{carry_over_limit_num=}')
         
         # 持有上限溢出能量
         carry_over_limit_energy_param = carry_over_limit_num * (ingredient_prob/5) if carry_over_limit_num * avg_energy_per_help > 0 else 0
