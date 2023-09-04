@@ -10,7 +10,7 @@ https://pokemon-sleep.streamlit.app/
 左側欄共有三個頁面
 
 1. [app](https://pokemon-sleep.streamlit.app) 頁面: 利用自己現有的食材篩選能做出哪些食譜料理
-2. [pokemon](https://pokemon-sleep.streamlit.app/pokemon) 頁面: 寶可夢的樹果、食材、來源島嶼
+2. [pokemon](https://pokemon-sleep.streamlit.app/Pokemon) 頁面: 寶可夢的樹果、食材、來源島嶼
 3. [潛力計算機](https://pokemon-sleep.streamlit.app/%E6%BD%9B%E5%8A%9B%E8%A8%88%E7%AE%97%E6%A9%9F) 頁面: 上傳遊戲中的寶可夢截圖，自動辨識所有文字，並可計算潛力
 
 ## 使用技術
