@@ -5,7 +5,6 @@ from PIL import Image
 
 from css.css_template import BASIC_CSS
 from img.img_filepath import POKEMON_SLEEP_IMG #, INGREDIENTS_IMG_LINKS
-from data.data_filepath import RECIPE_TRANSFORMED
 from util import (
     get_ingredient_unique_list,
     get_can_cook,
@@ -24,6 +23,7 @@ st.markdown(BASIC_CSS, unsafe_allow_html=True)
 image = Image.open(POKEMON_SLEEP_IMG)
 st.image(image, use_column_width=True, output_format='png')
 
+RECIPE_TRANSFORMED = 'data/transformed/pokemon_transformed.csv'
 df = pd.read_csv(RECIPE_TRANSFORMED, index_col=0)
 ingredient_unique_list = get_ingredient_unique_list(df)
 
