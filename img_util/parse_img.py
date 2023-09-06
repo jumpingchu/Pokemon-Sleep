@@ -1,3 +1,4 @@
+import re
 import warnings; warnings.filterwarnings('ignore')
 import pandas as pd
 from paddleocr import PaddleOCR
@@ -11,22 +12,25 @@ class TransformImage:
         ocr = PaddleOCR(lang=self.lang, show_log=False)
         result = ocr.ocr(self.img, cls=False)
         return result[0]
+            
     
     def filter_text(self, result):
+        
+        def sub_eng(text):
+            return re.sub(u'[A-Za-z]', '', text)
+        
         info = {}
         sub_skill_idx = 1
         for idx, line in enumerate(result):
             text = line[1][0].strip()
             text = text.upper()
-            # if find_zh(text):
-            #     filter_result.append((idx, text))
-            if idx < 10 and text in pokemons:
+            if idx < 10 and sub_eng(text) in pokemons:
                 info['pokemon'] = text
             elif idx > 10 and text in main_skills:
                 info['main_skill'] = text
             elif idx > 25 and text in natures:
                 info['nature'] = text
-            elif text in sub_skills:
+            elif text in sub_skills or f'持有{text}' in sub_skills or text.replace('盜', '持') in sub_skills:
                 info[f'sub_skill_{sub_skill_idx}'] = text
                 sub_skill_idx += 1
             else:
