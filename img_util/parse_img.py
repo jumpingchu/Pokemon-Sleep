@@ -30,9 +30,12 @@ class TransformImage:
                 info['main_skill'] = text
             elif idx > 25 and text in natures:
                 info['nature'] = text
-            elif text in sub_skills or f'持有{text}' in sub_skills or text.replace('盜', '持') in sub_skills:
+            elif text in sub_skills or text.replace('盜', '持') in sub_skills:
                 info[f'sub_skill_{sub_skill_idx}'] = text
                 sub_skill_idx += 1
+            elif f'持有{text}' in sub_skills or f"持有{text.replace('盜', '持')}" in sub_skills:
+                info[f'sub_skill_{sub_skill_idx}'] = f'持有{text}'
+                sub_skill_idx += 1 
             else:
                 pass
 
