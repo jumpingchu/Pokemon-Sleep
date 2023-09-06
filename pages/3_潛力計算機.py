@@ -47,35 +47,35 @@ if uploaded_file is not None:
         try:
             pokemon = st.text_input('寶可夢',  value=f"{info['pokemon']}")
         except:
-            pokemon = st.selectbox('寶可夢', pokemons)
+            pokemon = st.selectbox(':orange[寶可夢]', pokemons)
         
         # Main Skills
         try:
             main_skill = st.text_input('主技能', value=f"{info['main_skill']}")
         except:
-            main_skill = st.selectbox('主技能', main_skills)
+            main_skill = st.selectbox(':orange[主技能]', main_skills)
         
         # Sub Skills
         try:
             sub_skill_1 = st.text_input('副技能1', value=f"{info['sub_skill_1']}")
         except:
-            sub_skill_1 = st.selectbox('副技能1', sub_skills)   
+            sub_skill_1 = st.selectbox(':orange[副技能1]', sub_skills)   
         try:
             sub_skill_2 = st.text_input('副技能2', value=f"{info['sub_skill_2']}")
         except:
-            sub_skill_2 = st.selectbox('副技能2', sub_skills)            
+            sub_skill_2 = st.selectbox(':orange[副技能2]', sub_skills)            
         try:
             sub_skill_3 = st.text_input('副技能3', value=f"{info['sub_skill_3']}")
         except:
-            sub_skill_3 = st.selectbox('副技能3', sub_skills)            
+            sub_skill_3 = st.selectbox(':orange[副技能3]', sub_skills)            
         try:
             sub_skill_4 = st.text_input('副技能4', value=f"{info['sub_skill_4']}")
         except:
-            sub_skill_4 = st.selectbox('副技能4', sub_skills)            
+            sub_skill_4 = st.selectbox(':orange[副技能4]', sub_skills)            
         try:
             sub_skill_5 = st.text_input('副技能5', value=f"{info['sub_skill_5']}")
         except:
-            sub_skill_5 = st.selectbox('副技能5', sub_skills)            
+            sub_skill_5 = st.selectbox(':orange[副技能5]', sub_skills)            
         
         sub_skills = [
             sub_skill_1,
@@ -114,7 +114,7 @@ if uploaded_file is not None:
         try:
             nature = st.text_input('性格', value=f"{info.get('nature', '')}")
         except:
-            nature = st.selectbox('性格', natures)
+            nature = st.selectbox(':orange[性格]', natures)
 
         st.write(':small_red_triangle: UP: ', natures[nature]['up'])
         st.write(':small_blue_diamond: DOWN: ', natures[nature]['down'])
