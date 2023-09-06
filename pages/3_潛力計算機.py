@@ -92,7 +92,7 @@ if uploaded_file is not None:
         db = client['PokemonSleep']
         ingredient_collection = db['Ingredient']
         ingredient_all = ingredient_collection.find({})
-        ingredient_list = set([i['_id'] for i in ingredient_all])
+        ingredient_list = list(set([i['_id'] for i in ingredient_all]))
         try:
             pokemon_collection = db['Pokemon']
             pokemon_info = pokemon_collection.find_one(pokemon)
@@ -104,10 +104,10 @@ if uploaded_file is not None:
             ingredient_1 = st.selectbox(':orange[食材1]', ingredient_list)
             ingredient_num_1 = st.slider(':orange[食材1數量]', value=1, min_value=1, max_value=10, step=1)
         
-        ingredient_2 = st.selectbox(':orange[食材2]', ingredient_list)
+        ingredient_2 = st.selectbox(':orange[食材2]', ingredient_list, index=ingredient_list.index(ingredient_1))
         ingredient_num_2 = st.slider(':orange[食材2數量]', value=2, min_value=1, max_value=10, step=1)
 
-        ingredient_3 = st.selectbox(':orange[食材3]', ingredient_list)
+        ingredient_3 = st.selectbox(':orange[食材3]', ingredient_list, index=ingredient_list.index(ingredient_1))
         ingredient_num_3 = st.slider(':orange[食材3數量]', value=4, min_value=1, max_value=10, step=1)
         
         # Nature
