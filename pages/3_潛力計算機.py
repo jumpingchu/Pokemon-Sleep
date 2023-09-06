@@ -114,7 +114,7 @@ if uploaded_file is not None:
         try:
             nature = st.text_input('性格', value=f"{info.get('nature', '')}")
         except:
-            nature = st.selectbox(':orange[性格]', natures)
+            nature = st.selectbox(':orange[性格]', natures.keys())
 
         st.write(':small_red_triangle: UP: ', natures[nature]['up'])
         st.write(':small_blue_diamond: DOWN: ', natures[nature]['down'])
