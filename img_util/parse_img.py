@@ -24,11 +24,11 @@ class TransformImage:
         for idx, line in enumerate(result):
             text = line[1][0].strip()
             text = text.upper()
-            if idx < 10 and sub_eng(text) in pokemons:
+            if sub_eng(text) in pokemons:
                 info['pokemon'] = text
-            elif idx > 10 and text in main_skills:
+            elif text in main_skills:
                 info['main_skill'] = text
-            elif idx > 25 and text in natures:
+            elif text in natures:
                 info['nature'] = text
             elif text in sub_skills or text.replace('盜', '持') in sub_skills:
                 info[f'sub_skill_{sub_skill_idx}'] = text
