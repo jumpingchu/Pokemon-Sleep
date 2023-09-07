@@ -9,14 +9,20 @@ class TransformImage:
         self.lang = "chinese_cht"
     
     def extract_text_from_img(self):
-        ocr = PaddleOCR(lang=self.lang, show_log=False)
-        result = ocr.ocr(self.img, cls=False)
+        # 設定辨識語言、不顯示 log
+        ocr = PaddleOCR(lang=self.lang, show_log=False)  
+        
+        # If no text is rotated by 180 degrees, use cls=False to get better performance.
+        # 關閉多角度文字的辨識，提高效能
+        result = ocr.ocr(self.img, cls=False)  
+        
         return result[0]
             
     
     def filter_text(self, result):
         
         def sub_eng(text):
+            # 移除英文字
             return re.sub(u'[A-Za-z]', '', text)
         
         info = {}
@@ -25,7 +31,7 @@ class TransformImage:
             text = line[1][0].strip()
             text = text.upper()
             if sub_eng(text) in pokemons:
-                info['pokemon'] = text
+                info['pokemon'] = sub_eng(text)
             elif text in main_skills:
                 info['main_skill'] = text
             elif text in natures:
