@@ -13,7 +13,7 @@ class TransformImage:
         ocr = PaddleOCR(lang=self.lang, show_log=False)  
         
         # If no text is rotated by 180 degrees, use cls=False to get better performance.
-        # 關閉多角度文字的辨識，提高效能
+        # 關閉 angle classifier 的辨識，提高效能
         result = ocr.ocr(self.img, cls=False)  
         
         return result[0]
