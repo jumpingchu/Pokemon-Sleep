@@ -32,18 +32,18 @@ class TransformImage:
             text = text.upper()
             if sub_eng(text) in pokemons:
                 info['pokemon'] = sub_eng(text)
-            elif text in main_skills:
-                info['main_skill'] = text
-            elif text in natures:
-                info['nature'] = text
-            elif text in sub_skills or text.replace('盜', '持') in sub_skills:
-                info[f'sub_skill_{sub_skill_idx}'] = text
+            elif text in main_skills or text.replace('瘋', '癒') in main_skills or text.replace('癥', '癒') in main_skills:
+                info['main_skill'] = text.replace('瘋', '癒').replace('癥', '癒')
+            elif text in natures or text.replace('青', '害') in natures:
+                info['nature'] = text.replace('青', '害')
+            elif text in sub_skills or text.replace('盜', '持') in sub_skills or text.replace('複', '復') in sub_skills:
+                info[f'sub_skill_{sub_skill_idx}'] = text.replace('盜', '持').replace('複', '復')
                 sub_skill_idx += 1
             elif f'持有{text}' in sub_skills or f"持有{text.replace('盜', '持')}" in sub_skills:
                 info[f'sub_skill_{sub_skill_idx}'] = f'持有{text}'
                 sub_skill_idx += 1 
             else:
-                pass
+                print(text)
 
         return info
     
