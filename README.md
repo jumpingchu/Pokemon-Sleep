@@ -28,6 +28,8 @@ https://pokemon-sleep.streamlit.app/
 - [x] 機器學習預測樹果提供的能量（目前特徵: 寶可夢等級, 寶可夢SP）
 - [x] 自動文字辨識：寶可夢截圖資訊
 - [x] 藉由圖片辨識的文字來計算寶可夢能力
+- [ ] 技能文字模糊比對，提升圖片辨識的準確率（[TheFuzz](https://github.com/seatgeek/thefuzz)）
+- [ ] 自動選擇所有一般食材（排除高階食材：大蔥、尾巴、洋芋）
 - [ ] 查詢缺乏的食材由哪隻寶可夢產出 (`st.column_config.LinkColumn`)
 - [ ] 所選食材在各食譜的完成度 (`st.column_config.ProgressColumn`)
 - [ ] 完成度由高到低排序
