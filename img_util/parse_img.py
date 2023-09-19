@@ -1,6 +1,6 @@
 import re
+from datetime import datetime
 import warnings; warnings.filterwarnings('ignore')
-import pandas as pd
 from paddleocr import PaddleOCR
 
 class TransformImage:
@@ -27,7 +27,7 @@ class TransformImage:
         
         info = {}
         sub_skill_idx = 1
-        for idx, line in enumerate(result):
+        for _, line in enumerate(result):
             text = line[1][0].strip()
             text = text.upper()
             if sub_eng(text) in pokemons:
@@ -43,13 +43,16 @@ class TransformImage:
                 info[f'sub_skill_{sub_skill_idx}'] = f'持有{text}'
                 sub_skill_idx += 1 
             else:
-                print(text)
+                pass
 
         return info
     
     def run(_self):
         result = _self.extract_text_from_img()
         info = _self.filter_text(result)
+        print(f"{datetime.now()}")
+        print(f"{info}")
+        print("=========")
         return info
     
 main_skills = [

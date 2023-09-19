@@ -151,5 +151,6 @@ if uploaded_file is not None:
             
 
 else:
-    st.write('截圖範例（左上角寶可夢方框剛好遮住第一個食材）')
-    st.image('img/test3.PNG', width=200)
+    st.header('截圖範例')
+    st.write('左上角寶可夢方框剛好「遮住第一個食材」，並且最底部剛好出現「性格」')
+    st.image('img/test1.PNG')
