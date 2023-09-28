@@ -1,6 +1,8 @@
 import numpy as np
 from pymongo.mongo_client import MongoClient
 
+# 2023.09.28 更新為「寶可夢Sleep潛力計算機v4.0」版本
+
 def calculator(
         uri, 
         pokemon, 
