@@ -145,7 +145,7 @@ def calculator(
         sleep_exp_bonus = len([s for s in sub_skills if s == '睡眠EXP獎勵']) * 1000
 
         # 夢之碎片獎勵
-        dream_stone_bonus = len([s for s in sub_skills if s == '夢之碎片獎勵']) * 1000
+        dream_stone_bonus = len([s for s in sub_skills if s == '夢之碎片獎勵']) * 500
         
         energy_score = round(
             (60000/calc_help_interval) * avg_energy_per_help + \
