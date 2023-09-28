@@ -57,7 +57,7 @@ def calculator(
 
     # 幫忙間隔
     def calculate_help_interval():
-        helper_bonus = len([s for s in sub_skills if s == '幫手獎勵']) * 0.12
+        helper_bonus = len([s for s in sub_skills if s == '幫手獎勵']) * 0.15
         help_speed_s = len([s for s in sub_skills if s == '幫忙速度S']) * 0.07
         help_speed_m = len([s for s in sub_skills if s == '幫忙速度M']) * 0.14
 
