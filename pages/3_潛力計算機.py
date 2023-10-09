@@ -21,7 +21,7 @@ if uploaded_file is not None:
     
     with st.status("圖片上傳中...") as status:
         
-        @st.cache_data(max_entries=10)
+        @st.cache_data(max_entries=3)
         def process_img(uploaded_file):
             # 處理圖片
             img = uploaded_file.getvalue()
