@@ -106,7 +106,7 @@ def calculator(
             else 0
         )
         
-        main_skill_energy = main_skill_basic_energy['lv'+str(final_skill_level)] * main_skill_has_energy * final_skill_speed_param
+        main_skill_energy = main_skill_basic_energy['lv'+str(int(final_skill_level))] * main_skill_has_energy * final_skill_speed_param
         return main_skill_health_boost, main_skill_energy
 
     # 幫忙均能/次
