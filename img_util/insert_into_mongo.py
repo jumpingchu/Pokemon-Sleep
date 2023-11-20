@@ -32,7 +32,7 @@ mapping_cols_name = {
     "食材1數量": "ingredient_num",
 }
 
-pokemon_gsheet_url = "https://docs.google.com/spreadsheets/d/1XXel48BKuxa8sACD7vzS7k9TZLDF8QSugymO3Em942A/edit#gid=1569801725"
+pokemon_gsheet_url = "https://docs.google.com/spreadsheets/d/1-Jx4wvVN4tArcHoAByL5vHasdEw0NKDhtXW1PQ-BDoc/edit#gid=1569801725"
 new_df = load_gsheet_data(pokemon_gsheet_url)
 new_df = new_df[1:]  # Remove 1st sample row
 new_df = new_df.rename(columns=mapping_cols_name)
