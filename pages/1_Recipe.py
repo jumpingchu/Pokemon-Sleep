@@ -1,10 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from PIL import Image
 
-from img.img_filepath import POKEMON_SLEEP_IMG #, INGREDIENTS_IMG_LINKS
-from util import (
+from pages.util.util import (
     get_ingredient_unique_list,
     get_can_cook,
     category_list,
@@ -17,9 +15,6 @@ from util import (
 st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep 食譜')
 st.caption('利用自己現有的食材篩選能做出哪些食譜料理')
-
-image = Image.open(POKEMON_SLEEP_IMG)
-st.image(image, use_column_width=True, output_format='png')
 
 RECIPE_TRANSFORMED = 'data/transformed/recipe_transformed.csv'
 df = pd.read_csv(RECIPE_TRANSFORMED, index_col=0)

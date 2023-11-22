@@ -2,16 +2,17 @@
 
 ![pokemon_sleep](img/pokemon_sleep.png)
 
-## Try it (Streamlit Cloud)
+## Try it
 https://pokemon-sleep.streamlit.app/
 
 ## 目前功能
 
 左側欄共有三個頁面
 
-1. [app](https://pokemon-sleep.streamlit.app) 頁面: 利用自己現有的食材篩選能做出哪些食譜料理
-2. [pokemon](https://pokemon-sleep.streamlit.app/Pokemon) 頁面: 寶可夢的樹果、食材、來源島嶼
-3. [潛力計算機](https://pokemon-sleep.streamlit.app/%E6%BD%9B%E5%8A%9B%E8%A8%88%E7%AE%97%E6%A9%9F) 頁面: 上傳遊戲中的寶可夢截圖，自動辨識所有文字，並可計算潛力
+1. [Home](https://pokemon-sleep.streamlit.app): 首頁，點擊紅色按鈕進入不同頁面
+2. [Recipe](https://pokemon-sleep.streamlit.app/Recipe): 利用自己現有的食材篩選能做出哪些食譜料理
+3. [Pokemon](https://pokemon-sleep.streamlit.app/Pokemon): 寶可夢的樹果、食材、來源島嶼
+4. [潛力計算機](https://pokemon-sleep.streamlit.app/%E6%BD%9B%E5%8A%9B%E8%A8%88%E7%AE%97%E6%A9%9F): 上傳遊戲中的寶可夢截圖，自動辨識所有文字，並可計算潛力
 
 ## 使用技術
 - Streamlit
@@ -28,6 +29,7 @@ https://pokemon-sleep.streamlit.app/
 - [x] 機器學習預測樹果提供的能量（目前特徵: 寶可夢等級, 寶可夢SP）
 - [x] 自動文字辨識：寶可夢截圖資訊
 - [x] 藉由圖片辨識的文字來計算寶可夢能力
+- [x] 新增入口首頁
 - [ ] 技能文字模糊比對，提升圖片辨識的準確率（[TheFuzz](https://github.com/seatgeek/thefuzz)）
 - [ ] 自動選擇所有一般食材（排除高階食材：大蔥、尾巴、洋芋）
 - [ ] 查詢缺乏的食材由哪隻寶可夢產出 (`st.column_config.LinkColumn`)
@@ -74,7 +76,7 @@ https://pokemon-sleep.streamlit.app/
 
 - [《野兔小幫手》v1.3.0 (Google Sheet)](https://docs.google.com/spreadsheets/d/18aAHjg762T29F74yo8axDVFO09swCa7nUp_eTZ51ZAc/edit#gid=439534137)
 - [寶可夢全食譜彙整一覽表](https://pinogamer.com/16427)
-- [寶可夢Sleep潛力計算機v3.32](https://forum.gamer.com.tw/C.php?bsn=36685&snA=913&tnum=185)
+- [【攻略】使用能量計算!!更科學的『寶可夢Sleep潛力計算機v4.5』五段評價系統!!](https://forum.gamer.com.tw/C.php?bsn=36685&snA=913&tnum=354)
 
 
 ## Note
