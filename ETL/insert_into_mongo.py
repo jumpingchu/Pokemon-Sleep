@@ -68,6 +68,7 @@ for row in new_update_pokemons.itertuples():
 os.system("mv img_util/current_pokemons.csv img_util/updated/current_pokemons.csv")
 new_df.to_csv("img_util/current_pokemons.csv")
 
+### Test ###
 # def get_data_by_id(_id: str):
 #     query = collection.find_one({'_id': _id})#.limit(int(offset))
 #     print(f"{query['up']=}")
