@@ -5,6 +5,7 @@ from pymongo.mongo_client import MongoClient
 st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep 寶可夢潛力計算機')
 st.caption('上傳寶可夢的截圖，自動取得圖片資訊，並可一鍵計算潛力評價')
+st.caption("若覺得有幫助到你的話，歡迎小額支持我: https://www.buymeacoffee.com/jiapingchu")
 
 uploaded_file = st.file_uploader("上傳截圖", type=['jpg', 'png'])
 st.divider()
