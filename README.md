@@ -36,6 +36,12 @@ https://pokemon-sleep.streamlit.app/
 - [ ] 所選食材在各食譜的完成度 (`st.column_config.ProgressColumn`)
 - [ ] 完成度由高到低排序
 
+## 小額支持
+
+若覺得有幫助到你的話，歡迎小額支持我
+
+<a href="https://www.buymeacoffee.com/jiapingchu"><img src="img/bmc.png" width="200"/></a>
+
 ## 圖片辨識文字
 
 - [PyTesseract](https://github.com/madmaze/pytesseract) 辨識速度快但較不準確
