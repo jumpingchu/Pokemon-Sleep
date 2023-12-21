@@ -23,6 +23,10 @@ https://pokemon-sleep.streamlit.app/
 - Scikit-learn (`DecisionTreeRegressor`, `LinearRegression`)
 - SHAP (Feature explanation by visualization)
 
+## Project Flow Chart
+
+![project flow chart](img/pokemon_sleep_project_flow.png)
+
 ## 可能新增功能優先度
 - [x] 寶可夢的產出食材頁面 (Multipage apps)
 - [x] 食材圖片 (`st.column_config.ImageColumn`)
