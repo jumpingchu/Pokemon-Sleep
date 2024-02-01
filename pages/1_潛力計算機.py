@@ -7,6 +7,8 @@ from google.oauth2 import service_account
 st.set_page_config(page_title="Pokemon Sleep App", layout="wide")
 st.title("Pokemon Sleep 寶可夢潛力計算機")
 st.caption("上傳寶可夢的截圖，自動取得圖片資訊，並可一鍵計算潛力評價")
+st.caption("- 2024/02/01 更新最新寶可夢，包含童偶熊、拉魯拉絲、迷你龍")
+st.caption("- 並且依照原計算機的調整：調降夢之碎片的能量值")
 st.caption("若覺得有幫助到你的話，歡迎小額支持我: https://www.buymeacoffee.com/jiapingchu")
 
 uploaded_file = st.file_uploader("上傳截圖", type=["jpg", "png"])
