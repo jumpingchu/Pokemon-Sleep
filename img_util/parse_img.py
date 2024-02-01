@@ -1,7 +1,32 @@
 import re
 from datetime import datetime
+import streamlit as st
+from pymongo.mongo_client import MongoClient
 import warnings; warnings.filterwarnings('ignore')
 from paddleocr import PaddleOCR
+
+# Connect MongoDB to get possible item lists
+def connect_mongodb():
+    username = st.secrets["db_username"]
+    password = st.secrets["db_password"]
+    uri = f"mongodb+srv://{username}:{password}@cluster0.dhzzdc6.mongodb.net/?retryWrites=true&w=majority"
+    client = MongoClient(uri)
+    db_conn = client['PokemonSleep']
+    return db_conn
+
+def get_db_item_list(db_conn, target_collection):
+    collection = db_conn[target_collection]
+    item_all = collection.find({})
+    item_list = list(set([i['_airbyte_data']['_id'] for i in item_all]))
+    item_list.insert(0, '---')
+    return item_list
+
+db_conn = connect_mongodb()
+pokemons_list = get_db_item_list(db_conn, 'airbyte_raw_Pokemon')
+main_skills_list = get_db_item_list(db_conn, 'airbyte_raw_MainSkill')
+sub_skills_list = get_db_item_list(db_conn, 'airbyte_raw_SubSkill')
+natures_list = get_db_item_list(db_conn, 'airbyte_raw_Nature')
+ingredient_list = get_db_item_list(db_conn, 'airbyte_raw_Ingredient')
 
 class TransformImage:
     def __init__(self, img):
@@ -30,16 +55,16 @@ class TransformImage:
         for _, line in enumerate(result):
             text = line[1][0].strip()
             text = text.upper()
-            if sub_eng(text) in pokemons:
+            if sub_eng(text) in pokemons_list:
                 info['pokemon'] = sub_eng(text)
-            elif text in main_skills or text.replace('瘋', '癒') in main_skills or text.replace('癥', '癒') in main_skills:
+            elif text in main_skills_list or text.replace('瘋', '癒') in main_skills_list or text.replace('癥', '癒') in main_skills_list:
                 info['main_skill'] = text.replace('瘋', '癒').replace('癥', '癒')
-            elif text in natures or text.replace('青', '害') in natures:
+            elif text in natures_list or text.replace('青', '害') in natures_list:
                 info['nature'] = text.replace('青', '害')
-            elif text in sub_skills or text.replace('盜', '持') in sub_skills or text.replace('複', '復') in sub_skills:
+            elif text in sub_skills_list or text.replace('盜', '持') in sub_skills_list or text.replace('複', '復') in sub_skills_list:
                 info[f'sub_skill_{sub_skill_idx}'] = text.replace('盜', '持').replace('複', '復')
                 sub_skill_idx += 1
-            elif f'持有{text}' in sub_skills or f"持有{text.replace('盜', '持')}" in sub_skills:
+            elif f'持有{text}' in sub_skills_list or f"持有{text.replace('盜', '持')}" in sub_skills_list:
                 info[f'sub_skill_{sub_skill_idx}'] = f'持有{text}'
                 sub_skill_idx += 1 
             else:
@@ -54,186 +79,3 @@ class TransformImage:
         print(f"{info}")
         print("=========")
         return info
-    
-main_skills = [
-    '---',
-    '能量填充S',
-    '能量填充M',
-    '夢之碎片獲取S',
-    '活力療癒S',
-    '能量填充Sn',
-    '夢之碎片獲取Sn',
-    '活力填充S',
-    '活力全體療癒S',
-    '幫手支援S',
-    '食材獲取S',
-    '料理強化S',
-    '揮指'
-]
-
-sub_skills = [
-    '---',
-    '樹果數量S',
-    '夢之碎片獎勵',
-    '活力回復獎勵',
-    '幫手獎勵',
-    '幫忙速度M',
-    '幫忙速度S',
-    '食材機率提升M',
-    '食材機率提升S',
-    '持有上限提升L',
-    '持有上限提升M',
-    '持有上限提升S',
-    '研究EXP獎勵',
-    '技能等級提升M',
-    '技能等級提升S',
-    '技能機率提升M',
-    '技能機率提升S',
-    '睡眠EXP獎勵',
-]
-
-pokemons = [
-    '---',
-    '妙蛙種子',
-    '妙蛙草',
-    '妙蛙花',
-    '小火龍',
-    '火恐龍',
-    '噴火龍',
-    '傑尼龜',
-    '卡咪龜',
-    '水箭龜',
-    '綠毛蟲',
-    '鐵甲蛹',
-    '巴大蝶',
-    '小拉達',
-    '拉達',
-    '阿柏蛇',
-    '阿柏怪',
-    '皮丘',
-    '皮卡丘',
-    '雷丘',
-    '寶寶丁',
-    '胖丁',
-    '胖可丁',
-    '地鼠',
-    '三地鼠',
-    '喵喵',
-    '貓老大',
-    '可達鴨',
-    '哥達鴨',
-    '猴怪',
-    '火爆猴',
-    '卡蒂狗',
-    '風速狗',
-    '喇叭芽',
-    '口呆花',
-    '大食花',
-    '小拳石',
-    '隆隆石',
-    '隆隆岩',
-    '呆呆獸',
-    '呆殼獸',
-    '呆呆王',
-    '小磁怪',
-    '三合一磁怪',
-    '自爆磁怪',
-    '嘟嘟',
-    '嘟嘟利',
-    '鬼斯',
-    '鬼斯通',
-    '耿鬼',
-    '卡拉卡拉',
-    '嘎啦嘎啦',
-    '袋獸',
-    '凱羅斯',
-    '百變怪',
-    '伊布',
-    '仙子伊布',
-    '水伊布',
-    '雷伊布',
-    '火伊布',
-    '太陽伊布',
-    '月亮伊布',
-    '葉伊布',
-    '冰伊布',
-    '菊草葉',
-    '月桂葉',
-    '大竺葵',
-    '火球鼠',
-    '火岩鼠',
-    '火爆獸',
-    '小鋸鱷',
-    '藍鱷',
-    '大力鱷',
-    '波克比',
-    '波克基古',
-    '波克基斯',
-    '咩利羊',
-    '茸茸羊',
-    '電龍',
-    '盆才怪',
-    '樹才怪',
-    '小果然',
-    '果然翁',
-    '赫拉克羅斯',
-    '戴魯比',
-    '黑魯加',
-    '幼基拉斯',
-    '沙基拉斯',
-    '班基拉斯',
-    '懶人獺',
-    '過動猿',
-    '請假王',
-    '勾魂眼',
-    '溶食獸',
-    '吞食獸',
-    '青綿鳥',
-    '七夕青鳥',
-    '阿勃梭魯',
-    '海豹球',
-    '海魔獅',
-    '帝牙海獅',
-    '利歐路',
-    '路卡利歐',
-    '不良蛙',
-    '毒骷蛙',
-    '魔尼尼',
-    '魔牆人偶',
-    '皮寶寶',
-    '皮皮',
-    '皮可西',
-    '怨影娃娃',
-    '詛咒娃娃',
-    '大岩蛇',
-    '大鋼蛇',
-]
-
-natures = {
-    '---': {'up': '---', 'down': '---'},
-    '怕寂寞': {'up': '幫忙速度', 'down': '活力回復'},
-    '固執': {'up': '幫忙速度', 'down': '食材發現'},
-    '頑皮': {'up': '幫忙速度', 'down': '主技能'},
-    '勇敢': {'up': '幫忙速度', 'down': 'EXP'},
-    '大膽': {'up': '活力回復', 'down': '幫忙速度'},
-    '淘氣': {'up': '活力回復', 'down': '食材發現'},
-    '樂天': {'up': '活力回復', 'down': '主技能'},
-    '悠閒': {'up': '活力回復', 'down': 'EXP'},
-    '內斂': {'up': '食材發現', 'down': '幫忙速度'},
-    '慢吞吞': {'up': '食材發現', 'down': '活力回復'},
-    '馬虎': {'up': '食材發現', 'down': '主技能'},
-    '冷靜': {'up': '食材發現', 'down': 'EXP'},
-    '溫和': {'up': '主技能', 'down': '幫忙速度'},
-    '溫順': {'up': '主技能', 'down': '活力回復'},
-    '慎重': {'up': '主技能', 'down': '食材發現'},
-    '自大': {'up': '主技能', 'down': 'EXP'},
-    '膽小': {'up': 'EXP', 'down': '幫忙速度'},
-    '急躁': {'up': 'EXP', 'down': '活力回復'},
-    '爽朗': {'up': 'EXP', 'down': '食材發現'},
-    '天真': {'up': 'EXP', 'down': '主技能'},
-    '害羞': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-    '勤奮': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-    '坦率': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-    '浮躁': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-    '認真': {'up': '沒有性格帶來的特色', 'down': '沒有性格帶來的特色'},
-}

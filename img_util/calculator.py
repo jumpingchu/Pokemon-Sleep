@@ -1,61 +1,40 @@
 import numpy as np
 from pymongo.mongo_client import MongoClient
 
-# 2023.09.28 更新為「寶可夢Sleep潛力計算機v4.0」版本
+# 2024.02.01 更新為「寶可夢Sleep潛力計算機v4.7」版本
 
 def calculator(
-        uri, 
-        pokemon, 
-        main_skill, 
-        nature, 
+        pokemon_info, 
+        nature_up,
+        nature_down,
         sub_skills, 
-        ingredient_2,
-        ingredient_num_2,
-        ingredient_3,
-        ingredient_num_3
+        ingredient_2_num,
+        ingredient_2_energy,
+        ingredient_3_num,
+        ingredient_3_energy,
     ):
 
-    # Database connection
-    client = MongoClient(uri)
-    db = client['PokemonSleep']
-    natures_collection = db['Nature']
-    pokemon_collection = db['Pokemon']
-    mainSkill_collection = db['MainSkill']
-    # sub_skill_collection = db['SubSkill']
-    fruit_collection = db['Fruit']
-    ingredient_collection = db['Ingredient']
-
     # Pokemon
-    pokemon_info = pokemon_collection.find_one(pokemon)
-    final_help_interval = pokemon_info['final_help_interval']
-    final_evolution_step = pokemon_info['final_evolution_step']
-    carry_limit = pokemon_info['carry_limit']
+    final_help_interval = int(pokemon_info['final_help_interval'])
+    final_evolution_step = int(pokemon_info['final_evolution_step'])
+    carry_limit = int(pokemon_info['carry_limit'])
     fruit_type = pokemon_info['type'] 
 
     # Fruit
-    fruit_energy = fruit_collection.find_one(pokemon_info['fruit'])['energy']
-
-    pokemon_info = pokemon_collection.find_one(pokemon)
+    fruit_energy = int(pokemon_info['fruit_energy'])
 
     # 食材均能計算
-    ingredient_energy_1 = ingredient_collection.find_one(pokemon_info['ingredient'])['energy']
-    ingredient_num_1 = pokemon_info['ingredient_num']
-    ingredient_energy_total_1 = ingredient_num_1 * ingredient_energy_1
-    ingredient_energy_2 = ingredient_collection.find_one(ingredient_2)['energy']
-    ingredient_energy_total_2 = ingredient_num_2 * ingredient_energy_2
-    ingredient_energy_3 = ingredient_collection.find_one(ingredient_3)['energy']
-    ingredient_energy_total_3 = ingredient_num_3 * ingredient_energy_3
+    ingredient_1_energy = int(pokemon_info['ingredient_energy'])
+    ingredient_1_num = int(pokemon_info['ingredient_num'])
+    ingredient_energy_total_1 = ingredient_1_num * ingredient_1_energy
+    ingredient_energy_total_2 = ingredient_2_num * ingredient_2_energy
+    ingredient_energy_total_3 = ingredient_3_num * ingredient_3_energy
     ingredient_energy_avg = sum(
             [ingredient_energy_total_1, ingredient_energy_total_2, ingredient_energy_total_3]
         )/3
 
     # MainSkill
-    main_skill_basic_energy = mainSkill_collection.find_one(main_skill)['energy']
-
-    # Nature
-    nature = natures_collection.find_one(nature)
-    nature_up = nature['up']
-    nature_down = nature['down']
+    main_skill = pokemon_info['main_skill']
 
     # 幫忙間隔
     def calculate_help_interval():
@@ -105,8 +84,8 @@ def calculator(
             1 if main_skill not in ['活力填充S', '活力療癒S', '活力全體療癒S'] 
             else 0
         )
-        
-        main_skill_energy = main_skill_basic_energy['lv'+str(int(final_skill_level))] * main_skill_has_energy * final_skill_speed_param
+        main_skill_lv = 'Lv' + str(int(final_skill_level))
+        main_skill_energy = float(pokemon_info[main_skill_lv]) * main_skill_has_energy * final_skill_speed_param
         return main_skill_health_boost, main_skill_energy
 
     # 幫忙均能/次
@@ -129,7 +108,7 @@ def calculator(
 
     def calculate_carry_over_limit_energy(ingredient_prob, avg_energy_per_help, final_fruit_num, calc_help_interval):
         # 持有上限溢出數
-        ingredient_create_num = (ingredient_num_1 + ingredient_num_2 + ingredient_num_3)/3 * ingredient_prob
+        ingredient_create_num = (ingredient_1_num + ingredient_2_num + ingredient_3_num)/3 * ingredient_prob
         fruit_create_num = (5 - ingredient_prob) * final_fruit_num
         carry_s = len([s for s in sub_skills if s == '持有上限提升S']) * 6
         carry_m = len([s for s in sub_skills if s == '持有上限提升M']) * 12
@@ -138,7 +117,7 @@ def calculator(
         
         # 持有上限溢出能量
         carry_over_limit_energy_param = carry_over_limit_num * (ingredient_prob/5) if carry_over_limit_num * avg_energy_per_help > 0 else 0
-        avg_energy_per_ingredient = (ingredient_energy_1 + ingredient_energy_2 + ingredient_energy_3)/3
+        avg_energy_per_ingredient = (ingredient_1_energy + ingredient_2_energy + ingredient_3_energy)/3
         carry_over_limit_energy = carry_over_limit_energy_param * avg_energy_per_ingredient / 3
         return carry_over_limit_energy
 
