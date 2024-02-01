@@ -5,27 +5,41 @@
 ## Try it
 https://pokemon-sleep.streamlit.app/
 
+## Latest Updates
+- 2024/02/01 更新
+  - 新增最新寶可夢，包含童偶熊、拉魯拉絲、迷你龍
+  - 並且依照原計算機的調整：調降夢之碎片的能量值
+
 ## 目前功能
 
-左側欄共有三個頁面
+左側欄共有4個頁面
 
 1. [Home](https://pokemon-sleep.streamlit.app): 首頁，點擊紅色按鈕進入不同頁面
-2. [Recipe](https://pokemon-sleep.streamlit.app/Recipe): 利用自己現有的食材篩選能做出哪些食譜料理
-3. [Pokemon](https://pokemon-sleep.streamlit.app/Pokemon): 寶可夢的樹果、食材、來源島嶼
-4. [潛力計算機](https://pokemon-sleep.streamlit.app/%E6%BD%9B%E5%8A%9B%E8%A8%88%E7%AE%97%E6%A9%9F): 上傳遊戲中的寶可夢截圖，自動辨識所有文字，並可計算潛力
+2. [潛力計算機](https://pokemon-sleep.streamlit.app/%E6%BD%9B%E5%8A%9B%E8%A8%88%E7%AE%97%E6%A9%9F): 上傳遊戲中的寶可夢截圖，自動辨識所有文字，並可計算潛力
+3. [Recipe](https://pokemon-sleep.streamlit.app/Recipe): 利用自己現有的食材篩選能做出哪些食譜料理
+4. [Pokemon](https://pokemon-sleep.streamlit.app/Pokemon): 寶可夢的樹果、食材、來源島嶼
 
 ## 使用技術
-- Streamlit
-- Python:
+- Streamlit (Front-end GUI)
+- Python
   - Data process: `numpy`, `pandas`
   - Crawler: `requests`, `BeautifulSoup`, `fake_useragent`
-- Text Detection (OCR 光學字元辨識): `OpenCV`, `PyTesseract`, `EasyOCR`, `PaddleOCR`
-- Scikit-learn (`DecisionTreeRegressor`, `LinearRegression`)
-- SHAP (Feature explanation by visualization)
+- BigQuery (Data Warehouse)
+- Airbyte (Data Extract & Load)
+- Google Sheet (Raw Data)
+- Docker (Container)
+- Conda (Python Virtual Environment)
+- VS Code (IDE)
+- Text Detection (OCR 光學字元辨識)
+  - `OpenCV`, `PyTesseract`, `EasyOCR`, `PaddleOCR`
 
 ## Project Flow Chart
 
-![project flow chart](img/pokemon_sleep_project_flow.png)
+舊版
+- ![project flow chart](img/pokemon_sleep_project_flow.png)
+
+新版
+- 🏗️👷 WIP
 
 ## 可能新增功能優先度
 - [x] 寶可夢的產出食材頁面 (Multipage apps)
@@ -35,10 +49,6 @@ https://pokemon-sleep.streamlit.app/
 - [x] 藉由圖片辨識的文字來計算寶可夢能力
 - [x] 新增入口首頁
 - [ ] 技能文字模糊比對，提升圖片辨識的準確率（[TheFuzz](https://github.com/seatgeek/thefuzz)）
-- [ ] 自動選擇所有一般食材（排除高階食材：大蔥、尾巴、洋芋）
-- [ ] 查詢缺乏的食材由哪隻寶可夢產出 (`st.column_config.LinkColumn`)
-- [ ] 所選食材在各食譜的完成度 (`st.column_config.ProgressColumn`)
-- [ ] 完成度由高到低排序
 
 ## 小額支持
 
