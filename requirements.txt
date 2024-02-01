@@ -8,3 +8,5 @@ paddlepaddle -i https://mirror.baidu.com/pypi/simple
 paddleocr>=2.0.1
 pymongo
 pymongo[srv]
+streamlit
+google-cloud-bigquery
