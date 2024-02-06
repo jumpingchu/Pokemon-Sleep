@@ -20,7 +20,6 @@ if uploaded_file is not None:
         img = uploaded_file.getvalue()
         status.update(label="辨識圖片中...", state="running")
         info = process_img(img)
-        print(info)
         status.update(label="圖片辨識完成！", state="complete")
 
     # 顯示圖片
