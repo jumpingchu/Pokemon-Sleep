@@ -50,12 +50,6 @@ https://pokemon-sleep.streamlit.app/
 - [x] 新增入口首頁
 - [ ] 技能文字模糊比對，提升圖片辨識的準確率（[TheFuzz](https://github.com/seatgeek/thefuzz)）
 
-## 小額支持
-
-若覺得有幫助到你的話，歡迎小額支持我
-
-<a href="https://www.buymeacoffee.com/jiapingchu"><img src="img/bmc.png" width="200"/></a>
-
 ## 圖片辨識文字
 
 - [PyTesseract](https://github.com/madmaze/pytesseract) 辨識速度快但較不準確

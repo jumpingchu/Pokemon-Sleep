@@ -15,7 +15,6 @@ from pages.util.util import (
 st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep 食譜')
 st.caption('利用自己現有的食材篩選能做出哪些食譜料理')
-st.caption("若覺得有幫助到你的話，歡迎小額支持我: https://www.buymeacoffee.com/jiapingchu")
 
 RECIPE_TRANSFORMED = 'data/transformed/recipe_transformed.csv'
 df = pd.read_csv(RECIPE_TRANSFORMED, index_col=0)
