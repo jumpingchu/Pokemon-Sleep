@@ -12,7 +12,6 @@ class Pages:
 
 
 st.title("Pokemon Sleep 小幫手首頁")
-st.caption("若覺得有幫助到你的話，歡迎小額支持我: https://www.buymeacoffee.com/jiapingchu")
 
 image = Image.open(POKEMON_SLEEP_IMG)
 st.image(image, use_column_width=True, output_format="png")

@@ -5,7 +5,6 @@ import numpy as np
 st.set_page_config(page_title='Pokemon Sleep App', layout="wide")
 st.title('Pokemon Sleep 寶可夢')
 st.caption('寶可夢 ＆ 食材、樹果')
-st.caption("若覺得有幫助到你的話，歡迎小額支持我: https://www.buymeacoffee.com/jiapingchu")
 
 POKEMON_TRANSFORMED = 'data/transformed/pokemon_transformed.csv'
 df = pd.read_csv(POKEMON_TRANSFORMED)
